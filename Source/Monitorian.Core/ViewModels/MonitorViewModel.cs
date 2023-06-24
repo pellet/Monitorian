@@ -42,7 +42,7 @@ namespace Monitorian.Core.ViewModels
 
 				var floatVal = e.Message.Atoms.FirstOrDefault().Float32Value;
 				var val = (int)floatVal;
-				if (this.oscValue == val)
+				if (this.oscValue == val || val < 20)
 				{
 					return;
 				}
