@@ -9,6 +9,7 @@ using Monitorian.Core.Helper;
 using Monitorian.Core.Models;
 using Monitorian.Core.Models.Monitor;
 using Monitorian.Core.Properties;
+using OscDotNet.Lib;
 
 namespace Monitorian.Core.ViewModels
 {
@@ -19,6 +20,8 @@ namespace Monitorian.Core.ViewModels
 
 		private IMonitor _monitor;
 
+		private int oscValue = -1;
+
 		public MonitorViewModel(AppControllerCore controller, IMonitor monitor)
 		{
 			this._controller = controller ?? throw new ArgumentNullException(nameof(controller));
@@ -26,6 +29,66 @@ namespace Monitorian.Core.ViewModels
 			SetTopLeft();
 
 			LoadCustomization();
+
+			var port = 16342;
+			var server = new OscUdpServer(
+				new OscEndpoint(port)
+			);
+
+			server.MessageReceived += (s, e) => {
+
+				Console.WriteLine("Message received:");
+				PrintMessage(e.Message);
+
+				var floatVal = e.Message.Atoms.FirstOrDefault().Float32Value;
+				var val = (int)floatVal;
+				if (this.oscValue == val)
+				{
+					return;
+				}
+
+				Console.WriteLine($@"Updating brightness:{val}");
+				this.oscValue = val;
+				this.Brightness = val;
+
+				static void PrintMessage(Message message)
+				{
+					Console.WriteLine("Message:");
+					Console.WriteLine("- Address: '{0}'", message.Address);
+					Console.WriteLine("- TypeTags: '{0}'", GetTypeTagsString(message.TypeTags));
+					Console.WriteLine("- Atoms:");
+
+					foreach (var atom in message)
+					{
+						Console.WriteLine("  => {0}", atom.ToString());
+					}
+
+					static string GetTypeTagsString(TypeTag[] tags)
+					{
+						var builder = new StringBuilder();
+
+						foreach (var tag in tags)
+						{
+							byte b = (byte)tag;
+							char c = (char)b;
+							builder.Append(c);
+						}
+
+						return builder.ToString();
+					}
+				}
+			};
+
+			Console.WriteLine("Begin listening on port {0}", port);
+			server.BeginListen();
+			//
+			// Console.WriteLine("Press 'q' to quit...");
+			// var value = "";
+			//
+			// while (value?.ToLower() != "q")
+			// {
+			// 	value = Console.ReadLine();
+			// }
 		}
 
 		private readonly object _lock = new();
@@ -127,11 +190,13 @@ namespace Monitorian.Core.ViewModels
 
 		#region Brightness
 
+
 		public int Brightness
 		{
 			get => _monitor.Brightness;
 			set
 			{
+
 				if (_monitor.Brightness == value)
 					return;
 
@@ -433,7 +498,7 @@ namespace Monitorian.Core.ViewModels
 		private bool _isConfirmed;
 
 		// This count is for determining IsControllable property.
-		// To set this count, the following points need to be taken into account: 
+		// To set this count, the following points need to be taken into account:
 		// - The initial value of IsControllable property should be true (provided IsReachable is
 		//   true) because a monitor is expected to be controllable. Therefore, the initial count
 		//   should be greater than 0.

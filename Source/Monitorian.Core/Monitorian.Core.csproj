@@ -151,6 +151,10 @@
     <Compile Include="Views\WindowPainter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OscDotNet.Lib\OscDotNet.Lib.csproj">
+      <Project>{ea483838-ea43-4cf9-813e-6bb636a61c72}</Project>
+      <Name>OscDotNet.Lib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Monitorian.Supplement\Monitorian.Supplement.csproj">
       <Project>{6e338214-e33c-4014-9bdd-6d914e6c536d}</Project>
       <Name>Monitorian.Supplement</Name>

@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenFrame", "ScreenFrame\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartupAgency", "StartupAgency\StartupAgency.csproj", "{F44EA754-E653-4696-8A12-C86224292908}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OscDotNet.Lib", "OscDotNet.Lib\OscDotNet.Lib.csproj", "{EA483838-EA43-4CF9-813E-6BB636A61C72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,14 @@ Global
 		{F44EA754-E653-4696-8A12-C86224292908}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F44EA754-E653-4696-8A12-C86224292908}.Release|x86.ActiveCfg = Release|Any CPU
 		{F44EA754-E653-4696-8A12-C86224292908}.Release|x86.Build.0 = Release|Any CPU
+		{EA483838-EA43-4CF9-813E-6BB636A61C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA483838-EA43-4CF9-813E-6BB636A61C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA483838-EA43-4CF9-813E-6BB636A61C72}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EA483838-EA43-4CF9-813E-6BB636A61C72}.Debug|x86.Build.0 = Debug|Any CPU
+		{EA483838-EA43-4CF9-813E-6BB636A61C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA483838-EA43-4CF9-813E-6BB636A61C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA483838-EA43-4CF9-813E-6BB636A61C72}.Release|x86.ActiveCfg = Release|Any CPU
+		{EA483838-EA43-4CF9-813E-6BB636A61C72}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
